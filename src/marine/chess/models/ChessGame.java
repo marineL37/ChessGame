@@ -1,5 +1,7 @@
 package marine.chess.models;
 
+
+// TODO : test unittaire
 public class ChessGame {
 	// jeu
 	private ChessBoard chessBoard;
@@ -47,7 +49,7 @@ public class ChessGame {
 		pieceLost = null;
 		
 		if ( this.CheckColor(playerTurn) ) {
-			if ( playerTurn == pieceToMove.getColor() ) {
+			if ( playerTurn.equals(pieceToMove.getColor()) ) {
 				// Si la case de destination possede une piece
 				if (caseTarget.hasPiece()) {
 					// on conserve la piece qui vient de se faire prendre
@@ -60,17 +62,18 @@ public class ChessGame {
 				// On positionne la piece sur la nouvelle case
 				board[newX][newY].setPiece(pieceToMove);
 				
-				if (pieceLost != null && pieceLost.getName() == "roi") {
+				if ( pieceLost != null && pieceLost.getName().equals("roi") ) {
 					victory = true;
+					message = "Le joueur " + playerTurn + " a gagne !!";
 				}
 			} else {
-				message = "Action impossible : Le joueur '" + playerTurn  + 
-						"' tente de deplacer un pion du joueur '"+ pieceToMove.getColor() + "'";
+				message = "Action impossible : \nLe joueur '" + playerTurn  + 
+						"' tente de deplacer \nun pion du joueur '"+ pieceToMove.getColor() + "'";
 			}
 			
 			
 		} else {
-			message = "Ce n'est pas un joueur valide (joueur valide : 'black' ou 'white' uniquement).";
+			message = "Ce n'est pas un joueur valide \n(joueur valide : 'black' ou 'white' uniquement).";
 		}
 
 		chessBoard.ChessBoardDebugPieces();
@@ -96,4 +99,18 @@ public class ChessGame {
 		}
 		chessBoard.ChessBoardDebugPieces();
 	}
+	
+	// GETTERS
+	public Case[][] GetBoard() {
+		return this.board;
+	}
+	
+	public boolean GetVictory() {
+		return this.victory;
+	}
+	
+	public ChessBoard GetChessBoard( ) {
+		return this.chessBoard;
+	}
+	
 }
